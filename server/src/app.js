@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const connectDB = require('./database')
-const { development } = require('./config')
+const { development } = require('./config/env')
 
 app.use(express.json({
     limit: '50mb'

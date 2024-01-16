@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { development } = require('../config')
+const { development } = require('../config/env')
 
 const connectDB = async() => {
     try {

@@ -7,6 +7,7 @@ module.exports = {
         PORT: process.env.PORT,
         HOST: process.env.HOST,
         DATABASE_URL: process.env.DATABASE_URL,
-        CLERK_API_KEY: process.env.CLERK_API_KEY
+        CLERK_API_KEY: process.env.CLERK_API_KEY,
+        OPENAI_KEY: process.env.OPENAI_KEY
     }
 }
