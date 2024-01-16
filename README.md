@@ -1,0 +1,1 @@
+Web application that uses generative AI to simplify online sharing of recipes.
