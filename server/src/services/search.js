@@ -1,9 +1,7 @@
-/*
-    Service for searching.
-    This is segregated from recipe service as it will be used to search for author profiles as well in the future.
-*/
 const Recipe = require("../models/recipe")
 
+// Service for searching, written apart from recipe service 
+// as in future search will also accompany author profiles.
 const searchObj = {}
 searchObj.query = async(keywords, filters = {}, skip, limit) => {
     try {
