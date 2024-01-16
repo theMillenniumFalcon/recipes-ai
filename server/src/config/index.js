@@ -4,7 +4,8 @@ require('dotenv').config({path: path.join(__dirname,'../../.env')})
 
 module.exports = {
     development: {
-        port: process.env.PORT,
-        host: process.env.HOST
+        PORT: process.env.PORT,
+        HOST: process.env.HOST,
+        DATABASE_URL: process.env.DATABASE_URL
     }
 }
