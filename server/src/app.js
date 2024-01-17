@@ -12,7 +12,7 @@ const main = async () => {
     await connectDB()
     
     const server = app.listen(development.PORT, development.HOST, () => {
-        console.log(`server listening on port ${development.PORT}`)
+        console.log(`server listening on port ${development.PORT} and host ${development.HOST}`)
     })
 
     process.on('unhandledRejection', (err, promise) => {
