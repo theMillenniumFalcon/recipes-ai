@@ -2,7 +2,6 @@ const { default: openAIConfig } = require("../config/openai")
 
 const aiObj = {}
 aiObj.gpt = ((instruction) => {
-
     return new Promise((resolve, reject) => {
         openAIConfig.createChatCompletion({
             model: "gpt-3.5-turbo",
