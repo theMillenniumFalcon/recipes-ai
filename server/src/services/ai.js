@@ -36,4 +36,4 @@ aiObj.dalle = ((prompt) => {
     })
 })
 
-export { aiObj }
+export default aiObj
