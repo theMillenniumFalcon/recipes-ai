@@ -22,7 +22,7 @@ recipesObj.addImage = async(input) => {
     })
 }
 
-recipes.updateImage = async(input, idx, userId) => {
+recipesObj.updateImage = async(input, idx, userId) => {
     return new Promise(async(resolve) => {
         try {
             const recipe = await Recipe.findOne({_id: idx})
@@ -51,7 +51,7 @@ recipes.updateImage = async(input, idx, userId) => {
     })
 }
 
-recipes.get = async(args = {}) => {
+recipesObj.get = async(args = {}) => {
     try {
         let recipeData = []
         let count = 0
@@ -77,7 +77,7 @@ recipes.get = async(args = {}) => {
     }
 }
 
-recipes.delete = async(idx) => {
+recipesObj.delete = async(idx) => {
     try {
         const recipeData = await Recipe.findOne({ _id: idx })
         try {
@@ -110,7 +110,7 @@ recipes.delete = async(idx) => {
     }
 }
 
-recipes.getByUser = async({userId, limit, skip}) => {
+recipesObj.getByUser = async({userId, limit, skip}) => {
     try {
         let recipeData = []
         let count = 0
@@ -128,3 +128,5 @@ recipes.getByUser = async({userId, limit, skip}) => {
         return { code: 500, msg: "Could not retrive data from data store"}
     }
 }
+
+export default recipesObj
