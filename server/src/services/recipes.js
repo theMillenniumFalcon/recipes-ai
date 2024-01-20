@@ -50,3 +50,81 @@ recipes.updateImage = async(input, idx, userId) => {
         }
     })
 }
+
+recipes.get = async(args = {}) => {
+    try {
+        let recipeData = []
+        let count = 0
+        let data = {}
+
+        if (args['idx']) {
+            recipeData = await Recipe.findOne({ _id: args['idx'] })
+            data = recipeData
+
+        } else {
+            recipeData = await Recipe.find()
+            .select('_id name author diet img_url desc').sort({_id: -1})
+            .skip(args.skip).limit(args.limit)
+
+            count = await Recipe.count()
+            data = {count: count, recipes: recipeData}
+
+        }
+
+        return {code: 200, data: data}
+    } catch (error) {   
+        return { code: 500, msg: "Could not retrive data from data store"}
+    }
+}
+
+recipes.delete = async(idx) => {
+    try {
+        const recipeData = await Recipe.findOne({ _id: idx })
+        try {
+            // Delete image from cloudflare
+            if (!recipeData.img_url) return
+
+            const imgInfo = recipeData.img_url.split('/')
+            const options = {
+                method: 'DELETE',
+                url: `https://api.cloudflare.com/client/v4/accounts/${development.CLOUDFLARE_ID}/images/v1/${imgInfo[4]}`,
+                headers: {'Content-Type': 'application/json', Authorization: `Bearer ${development.CLOUDFLARE_TOKEN}`}
+            }
+
+            await axios.request(options)
+        } catch (e) {
+            console.time("RECIPE IMAGE DELETE ERROR")
+            console.log(`[> RECIPE IMAGE DELETE ERROR DETAILS] ${e}`)
+        }
+        
+        await Recipe.deleteOne({ _id: idx })
+
+        return {code: 200, msg: `Deleted item with _id ${idx}.`}
+
+    } catch (error) {
+
+        console.time("RECIPE DELETE ERROR")
+        console.log(`[> RECIPE DELETE ERROR DETAILS] ${error}`)
+        
+        return { code: 404, msg: "Could not delete item, please try again later."}
+    }
+}
+
+recipes.getByUser = async({userId, limit, skip}) => {
+    try {
+        let recipeData = []
+        let count = 0
+        let data = {}
+
+        recipeData = await Recipe.find({userId: userId})
+            .select('_id name author diet img_url desc').sort({_id: -1})
+            .skip(skip).limit(limit)
+
+            count = await Recipe.find({userId: userId}).count()
+            data = {count: count, recipes: recipeData}
+            
+        return {code: 200, data: data}
+    } catch (error) {
+        return { code: 500, msg: "Could not retrive data from data store"}
+    }
+}
