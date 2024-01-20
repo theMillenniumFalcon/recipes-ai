@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import DefaultLayout from './layouts/DefaultLayout.jsx'
+import AuthSignIn from "./pages/auth/AuthSignIn.jsx"
+import AuthSignUp from "./pages/auth/AuthSignUp.jsx"
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
@@ -15,7 +17,7 @@ function App() {
           path='/auth/signin' 
           element={
             <DefaultLayout>
-              <AuthSignIn/>
+              <AuthSignIn />
             </DefaultLayout>
           } 
         />
@@ -24,7 +26,7 @@ function App() {
           path='/auth/signup' 
           element={
             <DefaultLayout>
-              <AuthSignUp/>
+              <AuthSignUp />
             </DefaultLayout>
           } 
         />
