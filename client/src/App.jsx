@@ -19,7 +19,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route 
-                path='/auth/signin' 
+                path='/auth/signin'
                 element={
                   <DefaultLayout>
                     <AuthSignIn />

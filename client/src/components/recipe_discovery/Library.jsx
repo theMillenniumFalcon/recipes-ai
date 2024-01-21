@@ -56,13 +56,13 @@ export default function Library() {
         <div>
             <section className='mb-5 flex gap-8'>
                 <div className='flex items-center h-10 grow bg-slate-300 
-                text-ninja-blue font-semibold font-poppins rounded-lg py-1 px-3'>
+                text-blue-1 font-semibold font-poppins rounded-lg py-1 px-3'>
                     <input type='search' 
                     className='h-full grow bg-white/0 focus:outline-none focus:ring-0 border-0' 
                     placeholder='Search'
                     ref={searchInput}
                     onChange={(e) => search(e.target.value)}/>
-                    <div className='flex items-center h-10 bg-slate-300 text-ninja-blue font-medium font-poppins rounded-lg py-1 px-3'>
+                    <div className='flex items-center h-10 bg-slate-300 text-blue-1 font-medium font-poppins rounded-lg py-1 px-3'>
                         <i className="fa-solid fa-magnifying-glass fa-flip-horizontal"></i>
                     </div>
                 </div>
@@ -109,17 +109,17 @@ export default function Library() {
             
             <section className='flex justify-center font-bold mt-10'>
                 {(!recipes.search.isActive && recipes.recent.count > recipes.recent.list.length && !loadingMore) &&
-                    <button type='button' onClick={loadMoreRecent} className='bg-slate-300 text-ninja-blue rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
+                    <button type='button' onClick={loadMoreRecent} className='bg-slate-300 text-blue-1 rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
                         Load More
                     </button>
                 }
                 {(recipes.search.isActive && !recipes.search.isPending && recipes.search.count > recipes.search.results.length && !loadingMore) &&
-                    <button type='button' onClick={loadMoreSearchResults} className='bg-slate-300 text-ninja-blue rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
+                    <button type='button' onClick={loadMoreSearchResults} className='bg-slate-300 text-blue-1 rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
                         Load More
                     </button>
                 }
                 {(loadingMore) &&
-                    <button type='button' disabled className='animate-bounce bg-slate-300 text-ninja-blue rounded-xl hover:opacity-90 cursor-pointer px-4 py-2'>
+                    <button type='button' disabled className='animate-bounce bg-slate-300 text-blue-1 rounded-xl hover:opacity-90 cursor-pointer px-4 py-2'>
                         <i class="fa-solid fa-angles-down"></i>
                     </button>
                 }

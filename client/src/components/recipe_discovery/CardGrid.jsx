@@ -57,7 +57,7 @@ export default function CardGrid({list, total, initFunction, loadMoreFunction, n
                     })                          
                 }
                 {!loading && list.length === 0 &&
-                    <p className='font-medium font-poppins text-ninja-blue'>
+                    <p className='font-medium font-poppins text-blue-1'>
                             {noResultMessage}
                     </p>
                 } 
@@ -65,12 +65,12 @@ export default function CardGrid({list, total, initFunction, loadMoreFunction, n
 
             <section className='flex justify-center font-bold mt-10'>
             {(total > list.length && !loadingMore) &&
-                <button type='button' onClick={loadMoreRecent} className='bg-slate-300 text-ninja-blue rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
+                <button type='button' onClick={loadMoreRecent} className='bg-slate-300 text-blue-1 rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
                     Load More
                 </button>
             }
             {(loadingMore) &&
-                <button type='button' disabled className='animate-bounce bg-slate-300 text-ninja-blue rounded-xl hover:opacity-90 cursor-pointer px-4 py-2'>
+                <button type='button' disabled className='animate-bounce bg-slate-300 text-blue-1 rounded-xl hover:opacity-90 cursor-pointer px-4 py-2'>
                     <i class="fa-solid fa-angles-down"></i>
                 </button>
             }

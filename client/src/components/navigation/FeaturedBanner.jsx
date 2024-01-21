@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function FeaturedBanner(props) {
     return (
-        <div className="bg-ninja-blue rounded-3xl py-5 px-7 text-white font-poppins grow">
+        <div className="bg-blue-1 rounded-3xl py-5 px-7 text-white font-poppins grow">
             <Link to={`/recipe/view/${props.id}`}>
                 <div className="flex flex-col grow gap-y-2 font-poppins">
                     <h1 className="font-semibold text-lg md:text-2xl font-poppins">Featured</h1>

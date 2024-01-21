@@ -31,7 +31,7 @@ function Index() {
                 </section>
 
                 <section id="all-recipes" className='flex flex-col gap-y-5'>
-                    <h1 className='font-bold text-2xl text-ninja-blue font-poppins'>There's more to explore</h1>
+                    <h1 className='font-bold text-2xl text-blue-1 font-poppins'>There's more to explore</h1>
                     <Library/>
                 </section>
             </div>

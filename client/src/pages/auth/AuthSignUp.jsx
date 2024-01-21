@@ -3,7 +3,7 @@ import { SignUp } from "@clerk/clerk-react"
 export default function AuthSignUp() {
     return (
         <main className="font-poppins min-h-[69vh]">
-            <div className="bg-ninja-blue min-h-[287px] h-[35vh] w-full absolute right-0 z-0" aria-hidden />
+            <div className="bg-blue-1 min-h-[287px] h-[35vh] w-full absolute right-0 z-0" aria-hidden />
             <section className="flex flex-col justify-center items-center min-h-[651px] h-[85vh]">
                 <SignUp
                     appearance={{
