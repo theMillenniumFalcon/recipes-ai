@@ -43,7 +43,7 @@ export default function RecipeSubmission() {
             </section>
 
             <div className="flex flex-col justify-center items-center h-[50vh] gap-10">
-                <div className="bg-white shadow-ninja rounded-xl flex flex-col justify-center items-center gap-3 px-12 py-8 min-h-[125px] min-w-[275px] max-w-[450px]">
+                <div className="bg-white shadow-shadow-1 rounded-xl flex flex-col justify-center items-center gap-3 px-12 py-8 min-h-[125px] min-w-[275px] max-w-[450px]">
                     <div className="flex gap-5 justify-center items-center">
                         {state === "error" && <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-3xl"></i>}
                         {state === "loading" && <i className="animate-spin fa-solid fa-circle-notch text-[#66bd94] text-3xl"></i>}
