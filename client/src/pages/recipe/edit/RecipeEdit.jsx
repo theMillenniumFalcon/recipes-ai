@@ -32,8 +32,7 @@ export default function RecipeEdit({form, setForm}) {
       } = useForm({
 
         defaultValues: async() => {
-
-            dialogs.showLoading("Unlocking Recipe...");
+            dialogs.showLoading("Unlocking Recipe...")
             const recipe = await recipes.specific.get(idx)
             
             for (let ingredient of recipe.ingredients) {
@@ -76,9 +75,8 @@ export default function RecipeEdit({form, setForm}) {
     const recipes = useRecipes()
 
     const cancelEdit = async() => {
-        let continueCancel = await dialogs.awaitConfirmation("Discard Changes", "Are you sure you want to cancel editing this recipe?");
-
-        if (continueCancel) navigate(`/recipe/view/${idx}`);
+        let continueCancel = await dialogs.awaitConfirmation("Discard Changes", "Are you sure you want to cancel editing this recipe?")
+        if (continueCancel) navigate(`/recipe/view/${idx}`)
     }
 
     const onSubmit = async(data) => {
