@@ -116,43 +116,43 @@ export default function RecipeEdit({form, setForm}) {
     return (
         <main ref={container} className="font-poppins min-h-[69vh]">
             <DevTool control={control} placement="top-right" />
-            <div className="bg-ninja-blue h-24 w-full absolute right-0 z-0" aria-hidden />
+            <div className="bg-blue-1 h-24 w-full absolute right-0 z-0" aria-hidden />
             <section className="flex flex-col justify-center h-24 text-white font-bold text-xl">
                 <h1 className="z-10">Edit Recipe (Beta)</h1>
             </section>
             <section className="py-5 flex flex-col gap-5">
                 <ManualModeBanner></ManualModeBanner>
                 <form className="flex flex-col gap-3 md:w-[95%]" onSubmit={handleSubmit(onSubmit)}>
-                    <label className="font-bold text-xl text-ninja-blue mt-1">Recipe Title</label>
+                    <label className="font-bold text-xl text-blue-1 mt-1">Recipe Title</label>
                     <RecipeTitleInput register={register} errors={errors}/>
-                    <label className="font-bold text-xl text-ninja-blue mt-1">Estimated Cooking Time</label>
+                    <label className="font-bold text-xl text-blue-1 mt-1">Estimated Cooking Time</label>
                     <RecipeTimeInput register={register} errors={errors}/>
-                    <label className="font-bold text-xl text-ninja-blue mt-1">
+                    <label className="font-bold text-xl text-blue-1 mt-1">
                         <small className="fa-solid fa-bolt"></small>&nbsp;
                         Short Description <small className="text-slate-400">(used when featured)</small>
                     </label>       
                     <RecipeDescriptionInput register={register} errors={errors}/>
-                    <label className="font-bold text-xl text-ninja-blue mt-1">
+                    <label className="font-bold text-xl text-blue-1 mt-1">
                         <small className="fa-solid fa-bolt"></small>&nbsp;
                         Introduction
                     </label>
                     <RecipeIntroductionInput register={register} errors={errors} />
-                    <label className="font-bold text-xl text-ninja-blue mt-1" id="ingredientLabel">
+                    <label className="font-bold text-xl text-blue-1 mt-1" id="ingredientLabel">
                         <small className="fa-solid fa-bolt"></small>&nbsp;
                         Ingredients
                     </label>
                     <RecipeIngredientsInput register={register} errors={errors} fields={ingredients.fields} append={ingredients.append} remove={ingredients.remove} steps={steps}/>
-                    <label className="font-bold text-xl text-ninja-blue mt-1">
+                    <label className="font-bold text-xl text-blue-1 mt-1">
                         <small className="fa-solid fa-bolt"></small>&nbsp;
                         Dietary Classification
                     </label>
                     <RecipeEditDietIndicator watch={watch()} />
-                    <label className="font-bold text-xl text-ninja-blue mt-1">Cooking Steps</label>
+                    <label className="font-bold text-xl text-blue-1 mt-1">Cooking Steps</label>
                     <RecipeStepsInput register={register} errors={errors} fields={steps.fields} append={steps.append} remove={steps.remove} watch={watch()}/>
-                    <label className="font-bold text-xl text-ninja-blue">Replace Image</label> 
+                    <label className="font-bold text-xl text-blue-1">Replace Image</label> 
                     <RecipeImageInput register={register} />
                     <div className="flex flex-col md:flex-row gap-2 justify-end">
-                        <button className="md:w-[250px] h-[50px] mt-[16px] bg-slate-300 text-ninja-blue rounded-[10px] font-poppins font-bold text-[17px] text-center hover:opacity-90 cursor-pointer" 
+                        <button className="md:w-[250px] h-[50px] mt-[16px] bg-slate-300 text-blue-1 rounded-[10px] font-poppins font-bold text-[17px] text-center hover:opacity-90 cursor-pointer" 
                         type="button" onClick={cancelEdit}>
                             <i className="fa-solid fa-ban"></i>&nbsp;
                             Cancel

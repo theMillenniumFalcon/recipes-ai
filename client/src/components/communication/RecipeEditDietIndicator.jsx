@@ -15,7 +15,7 @@ export default function RecipeEditDietIndicator({watch}) {
 
     return (
         <>
-            <p className="text-ninja-blue text-sm font-medium rounded-lg px-3 py-2">
+            <p className="text-blue-1 text-sm font-medium rounded-lg px-3 py-2">
                 <i className="fa-solid fa-circle-info"/>&nbsp;
                 This value is automatically computed based on the categorisation of the ingredients you've used.
             </p>

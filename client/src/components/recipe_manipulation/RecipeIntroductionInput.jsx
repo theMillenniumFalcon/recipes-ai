@@ -8,7 +8,7 @@ export default function RecipeIntroductionInput({register, errors}) {
             }
             <textarea
                 className='focus:outline-none focus:ring-0 border-0 flex items-center h-20 grow
-                bg-slate-300 text-ninja-blue font-semibold font-poppins rounded-lg py-2 px-3 mb-1' 
+                bg-slate-300 text-blue-1 font-semibold font-poppins rounded-lg py-2 px-3 mb-1' 
                 placeholder="How would you introduce this recipe?"
                 {...register("intro", {
                     required: "Please provide a descripton for the recipe."

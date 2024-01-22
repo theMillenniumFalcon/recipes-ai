@@ -19,12 +19,12 @@ export default function RecipeIngredientsInput({register, errors, fields, append
             }
             {fields.map((field, index) => {
                 return (
-                    <div className="flex flex-col gap-2 bg-white p-3 shadow-ninja rounded-xl border-2 border-slate-300 border-dashed" key={field.id}>
+                    <div className="flex flex-col gap-2 bg-white p-3 shadow-shadow-1 rounded-xl border-2 border-slate-300 border-dashed" key={field.id}>
                         <div className="flex flex-col md:flex-row gap-2">
                             <div className="grow font-poppins font-semibold flex flex-col gap-1">
                                 <label>Name</label>
                                 <input
-                                    className='focus:outline-none focus:ring-0 border-0 flex items-center h-10 w-full capitalize bg-slate-300 text-ninja-blue font-semibold font-poppins rounded-lg py-2 px-3'
+                                    className='focus:outline-none focus:ring-0 border-0 flex items-center h-10 w-full capitalize bg-slate-300 text-blue-1 font-semibold font-poppins rounded-lg py-2 px-3'
                                     type="text"
                                     placeholder="Name"
                                     required
@@ -35,7 +35,7 @@ export default function RecipeIngredientsInput({register, errors, fields, append
                             <div className="md:min-w-[350px] font-poppins font-semibold flex flex-col gap-1">
                                 <label>Category</label>
                                 <select
-                                    className='focus:outline-none focus:ring-0 border-0 flex items-center h-10 capitalize bg-slate-300 text-ninja-blue font-semibold font-poppins rounded-lg py-2 px-3'
+                                    className='focus:outline-none focus:ring-0 border-0 flex items-center h-10 capitalize bg-slate-300 text-blue-1 font-semibold font-poppins rounded-lg py-2 px-3'
                                     type="text"
                                     placeholder="Category"
                                     selected={field.category}
@@ -75,7 +75,7 @@ export default function RecipeIngredientsInput({register, errors, fields, append
                                         type='button' 
                                         onClick={() => deleteIngredient(index)}
                                         className='font-poppins font-semibold bg-slate-300 
-                                        text-ninja-blue rounded-lg hover:opacity-90 cursor-pointer 
+                                        text-blue-1 rounded-lg hover:opacity-90 cursor-pointer 
                                         px-3 py-2 mb-1'
                                     >
                                         <i className="fa-solid fa-trash"></i>
@@ -88,7 +88,7 @@ export default function RecipeIngredientsInput({register, errors, fields, append
             })}
 
             <div>
-                <button type='button' onClick={() => append({ingredient: ""})} className='float-right mt-3 font-poppins font-semibold bg-slate-300 text-ninja-blue rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
+                <button type='button' onClick={() => append({ingredient: ""})} className='float-right mt-3 font-poppins font-semibold bg-slate-300 text-blue-1 rounded-lg hover:opacity-90 cursor-pointer px-4 py-2'>
                     <i className="fa-solid fa-plus"></i> Add Ingredient
                 </button>
             </div>
