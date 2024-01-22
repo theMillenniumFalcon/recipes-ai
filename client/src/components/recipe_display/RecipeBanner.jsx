@@ -1,7 +1,7 @@
 export default function RecipeBanner({ currentRecipe }) {
     return (
         <>
-            <div className="bg-ninja-blue h-80 md:h-72 w-full absolute right-0 z-0" aria-hidden />
+            <div className="bg-blue-1 h-80 md:h-72 w-full absolute right-0 z-0" aria-hidden />
             <section className='flex flex-col md:flex-row z-10'>
                 <section className='grow flex justify-center md:justify-start items-center text-white'>
                     {currentRecipe.name &&
@@ -24,25 +24,25 @@ export default function RecipeBanner({ currentRecipe }) {
 
                 {currentRecipe.name && 
                     <section className='bg-slate-300 w-full h-60 md:h-80 md:w-[50%] bg-cover bg-center rounded-xl 
-                    mt-5 shadow-ninja' style={{backgroundImage: `url('${currentRecipe.img_url}/ncHeader')`}}>
+                    mt-5 shadow-shadow-1' style={{backgroundImage: `url('${currentRecipe.img_url}/ncHeader')`}}>
                     </section>
                 }
                 {!currentRecipe.name && 
                     <section className='bg-slate-300 w-full h-60 md:h-80 md:w-[50%] bg-cover bg-center rounded-xl 
-                    mt-5 shadow-ninja animate-pulse'>
+                    mt-5 shadow-shadow-1 animate-pulse'>
                     </section>
                 }
             </section>
 
             {currentRecipe.name &&
-                <section className='relative top-[-20px] md:absolute md:top-[22.6rem] flex gap-3 font-poppins z-10 justify-center md:justify-start text-ninja-blue'>
-                    <div className='shadow-ninja bg-white py-2 px-3 rounded-2xl'>
+                <section className='relative top-[-20px] md:absolute md:top-[22.6rem] flex gap-3 font-poppins z-10 justify-center md:justify-start text-blue-1'>
+                    <div className='shadow-shadow-1 bg-white py-2 px-3 rounded-2xl'>
                         <p className='font-semibold capitalize'>
                             <i className="fa-solid fa-clock"></i>&nbsp;
                             {currentRecipe.cooking_time} mins
                         </p>
                     </div>
-                    <div className='shadow-ninja bg-white py-2 px-3 rounded-2xl'>
+                    <div className='shadow-shadow-1 bg-white py-2 px-3 rounded-2xl'>
                         <p className='font-semibold capitalize'>{currentRecipe.diet}</p>
                     </div>
                 </section>

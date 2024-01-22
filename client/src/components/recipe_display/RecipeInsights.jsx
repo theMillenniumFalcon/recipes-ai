@@ -1,9 +1,9 @@
 export default function RecipeInsights({ currentRecipe }) {
     return (
         <>
-            <section className='font-medium font-poppins text-ninja-blue flex gap-5 mb-2 flex-col md:flex-row'>
+            <section className='font-medium font-poppins text-blue-1 flex gap-5 mb-2 flex-col md:flex-row'>
                 {currentRecipe.health_category &&
-                    <div className='bg-white shadow-ninja rounded-2xl px-5 py-4 basis-1/2'>
+                    <div className='bg-white shadow-shadow-1 rounded-2xl px-5 py-4 basis-1/2'>
                         <span className='font-semibold bg-slate-300 text-slate-800 py-1 px-3 rounded-lg mr-2 mb-2 inline-block'>
                             <i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp;
                             AI Insights
@@ -20,10 +20,10 @@ export default function RecipeInsights({ currentRecipe }) {
                     </div>
                 }
                 {!currentRecipe.health_category &&
-                    <div className='bg-slate-200 animate-pulse h-48 shadow-ninja rounded-2xl px-5 py-4 md:basis-1/2'/>
+                    <div className='bg-slate-200 animate-pulse h-48 shadow-shadow-1 rounded-2xl px-5 py-4 md:basis-1/2'/>
                 }
                 {currentRecipe.allergies &&
-                    <div className='bg-white shadow-ninja rounded-2xl px-5 py-4 basis-1/2'>
+                    <div className='bg-white shadow-shadow-1 rounded-2xl px-5 py-4 basis-1/2'>
                         <span className='font-semibold bg-slate-300 text-slate-800 py-1 px-3 rounded-lg mr-2 mb-2 inline-block'>
                             <i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp;
                             AI Insights
@@ -39,7 +39,7 @@ export default function RecipeInsights({ currentRecipe }) {
                     </div>
                 }
                 {!currentRecipe.allergies &&
-                    <div className='bg-slate-200 animate-pulse h-48 shadow-ninja rounded-2xl px-5 py-4 md:basis-1/2'/>
+                    <div className='bg-slate-200 animate-pulse h-48 shadow-shadow-1 rounded-2xl px-5 py-4 md:basis-1/2'/>
                 }
             </section>
         </>

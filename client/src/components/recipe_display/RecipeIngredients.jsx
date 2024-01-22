@@ -19,15 +19,15 @@ export default function RecipeIngredients({ currentRecipe }) {
 
     return (
            <>
-            <section className='font-medium text-ninja-blue flex gap-5 mb-2 flex-col'>   
+            <section className='font-medium text-blue-1 flex gap-5 mb-2 flex-col'>   
                 {veggies.length > 0 ? (
                     <>
-                        <h4 className='text-ninja-blue font-bold text-lg'>Veggies & Fruits</h4>
+                        <h4 className='text-blue-1 font-bold text-lg'>Veggies & Fruits</h4>
                         <ul className='flex flex-wrap gap-x-6 gap-y-3 font-poppins'>
                             {veggies.map((ingredient, i) => (
-                                <li className="text-ninja-blue font-medium text-md bg-white 
-                                border-2 border-ninja-blue/25 border-dashed lowercase
-                                shadow-chef py-5 px-3 text-center min-w-[175px] rounded-2xl" 
+                                <li className="text-blue-1 font-medium text-md bg-white 
+                                border-2 border-blue-1/25 border-dashed lowercase
+                                shadow-shadow-2 py-5 px-3 text-center min-w-[175px] rounded-2xl" 
                                 key={`${currentRecipe._id}-veggies-${i}`}>
                                     {ingredient.name}
                                 </li>
@@ -39,12 +39,12 @@ export default function RecipeIngredients({ currentRecipe }) {
 
                 {dairy.length > 0 ? (
                     <>
-                        <h4 className='text-ninja-blue font-bold text-lg'>Dairy</h4>
+                        <h4 className='text-blue-1 font-bold text-lg'>Dairy</h4>
                         <ul className='flex flex-wrap gap-x-6 gap-y-3 font-poppins'>
                             {dairy.map((ingredient, i) => (
-                                <li className="text-ninja-blue font-medium text-md bg-white 
-                                border-2 border-ninja-blue/25 border-dashed lowercase
-                                shadow-chef py-5 px-3 text-center min-w-[175px] rounded-2xl" 
+                                <li className="text-blue-1 font-medium text-md bg-white 
+                                border-2 border-blue-1/25 border-dashed lowercase
+                                shadow-shadow-2 py-5 px-3 text-center min-w-[175px] rounded-2xl" 
                                 key={`${currentRecipe._id}-diary-${i}`}>
                                     {ingredient.name}
                                 </li>
@@ -56,12 +56,12 @@ export default function RecipeIngredients({ currentRecipe }) {
                 
                 {meats.length > 0 ? (
                     <>
-                        <h4 className='text-ninja-blue font-bold text-lg'>Meat & Eggs</h4>
+                        <h4 className='text-blue-1 font-bold text-lg'>Meat & Eggs</h4>
                         <ul className='flex flex-wrap gap-x-6 gap-y-3 font-poppins'>
                             {meats.map((ingredient, i) => (
-                                <li className="text-ninja-blue font-medium text-md bg-white 
-                                border-2 border-ninja-blue/25 border-dashed lowercase
-                                shadow-chef py-5 px-3 text-center min-w-[175px] rounded-2xl" 
+                                <li className="text-blue-1 font-medium text-md bg-white 
+                                border-2 border-blue-1/25 border-dashed lowercase
+                                shadow-shadow-2 py-5 px-3 text-center min-w-[175px] rounded-2xl" 
                                 key={`${currentRecipe._id}-meat-${i}`}>
                                     {ingredient.name}
                                 </li>
@@ -73,12 +73,12 @@ export default function RecipeIngredients({ currentRecipe }) {
 
                 {others.length > 0 ? (
                     <>
-                        <h4 className='text-ninja-blue font-bold text-lg'>Spices, condiments, nuts & everything else</h4>
+                        <h4 className='text-blue-1 font-bold text-lg'>Spices, condiments, nuts & everything else</h4>
                         <ul className='flex flex-wrap gap-x-6 gap-y-3 font-poppins'>
                             {others.map((ingredient, i) => (
-                                <li className="text-ninja-blue font-medium text-md bg-white 
-                                border-2 border-ninja-blue/25 border-dashed lowercase
-                                shadow-chef py-5 px-3 text-center min-w-[175px] rounded-2xl" 
+                                <li className="text-blue-1 font-medium text-md bg-white 
+                                border-2 border-blue-1/25 border-dashed lowercase
+                                shadow-shadow-2 py-5 px-3 text-center min-w-[175px] rounded-2xl" 
                                 key={`${currentRecipe._id}-other-${i}`}>
                                     {ingredient.name}
                                 </li>
