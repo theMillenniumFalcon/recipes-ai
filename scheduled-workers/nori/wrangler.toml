@@ -1,0 +1,6 @@
+name = "recipes-ai-nori"
+main = "src/index.js"
+compatibility_date = "2024-01-27"
+
+[triggers]
+crons = [ "30 3 * * *" ]
