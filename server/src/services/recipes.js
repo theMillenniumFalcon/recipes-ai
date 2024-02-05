@@ -1,8 +1,58 @@
+const promptsObj = require("../ai/prompts")
 const { development } = require("../config/env")
+const asyncHandlersObj = require("../utils/asyncHandlers")
+const helpersObj = require("../utils/helpers")
 const PendingSubmission = require("../models/pendingSubmission")
 const Recipe = require("../models/recipe")
 
 const recipesObj = {}
+recipesObj.add = async(input) => {
+    return new Promise(async(resolve) => {
+        try {           
+            // Preparing Prompt
+            let stepsString = ''
+            input.steps.forEach((step, i) => stepsString += `[STEP ${i+1}] ${step} `)
+    
+            let unprocessedData = `Recipe Name: ${input.name}, Author: ${input.author}, Steps: ${stepsString}`
+            
+            let prompt = [promptsObj.recipeObject, promptsObj.recipeSpamCheck, promptsObj.recipeContext(unprocessedData)]
+    
+            // Spam Analysis
+            const spamAnalysis = await ai.gpt(prompt)
+            
+            console.log(spamAnalysis)
+
+            if (spamAnalysis.spam_score >= 5) {
+                resolve({ code: 200, spam: true, msg: `${spamAnalysis.score_reason}`})
+                return
+            }
+
+            // Initiating background processing chain, if submission is not spam.
+            if (input.submission_id) { // Submission ID already exists (when user has submitted a cover image)
+                await PendingSubmission.findOneAndUpdate({_id: input.submission_id}, {stage: "Identifying & sorting ingredients..."})
+                input.generateImage = false
+            } else { // No Submission ID; cover image also needs to be generated
+                let newPendingSubmission = {
+                    is_pending: true,
+                    success: true,
+                    stage: "Identifying & sorting ingredients..."
+                }
+
+                const submission = await PendingSubmission.create(newPendingSubmission)
+                input.submission_id = submission._id
+                input.generateImage = true
+            }
+
+            asyncHandlersObj.addRecipe(stepsString, input)
+
+            resolve({code: 200, msg: "Submission sent for further processing.", submission_id: input.submission_id})
+        } catch (error) {
+            console.log(error)
+            return { code: 500, msg: "Could not add item"}
+        }
+    })
+}
+
 recipesObj.addImage = async(input) => {
     return new Promise(async(resolve) => {
         try {

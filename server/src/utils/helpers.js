@@ -1,7 +1,6 @@
 // Helpers for Async Handlers
 
 const helpersObj = {}
-
 helpersObj.isRecipeOutputValid = (output, targetSchema = 'aiAssist') => {
     let schemaOptions = {
         aiAssist: [
