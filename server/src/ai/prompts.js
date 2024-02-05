@@ -1,4 +1,3 @@
-
 const promptsObj = {}
 promptsObj.base = Object.freeze({
     role:"system",

@@ -1,4 +1,4 @@
-import { Clerk } from '@clerk/clerk-sdk-node'
+const Clerk = require('@clerk/clerk-sdk-node')
 
 const { development } = require('./env')
 

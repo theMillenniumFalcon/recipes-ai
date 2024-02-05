@@ -1,4 +1,4 @@
-import { OpenAIApi, Configuration } from 'openai'
+const { OpenAIApi, Configuration } = require("openai")
 
 const { development } = require('./env')
 
