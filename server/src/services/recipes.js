@@ -101,6 +101,77 @@ recipesObj.updateImage = async(input, idx, userId) => {
     })
 }
 
+recipes.update = async(input) => {
+    return new Promise(async(resolve) => {
+        try {
+            // fetch old recipe data
+            const oldRecipe = await db.Recipe.findOne({_id: input._id})
+
+            // check if recipe belongs to user
+            if (oldRecipe.userId !== input.userId) throw new Error("401")
+            
+            // Preparing Prompt
+            let stepsString = ''
+            input.steps.forEach((step, i) => stepsString += `[STEP ${i + 1}] ${step} `)
+    
+            const unprocessedData = `Recipe Name: ${input.name}, Author: ${input.author}, Steps: ${stepsString}`
+            const instruction = [prompts.recipeObject, prompts.recipeSpamCheck, prompts.recipeContext(unprocessedData)]
+    
+            // Spam Analysis
+            const spamAnalysis = await ai.gpt(instruction)
+            
+            console.log(spamAnalysis)
+
+            if (spamAnalysis.spam_score >= 5) {
+                resolve({ code: 200, spam: true, msg: `${spamAnalysis.score_reason}`})
+                return
+            }
+
+            // use helper to validate and sanitise ingredients
+            let areIngredientsValid = await helpersObj.validateIngredients(input.ingredients, input.steps)
+
+            if (!areIngredientsValid) throw new Error("Validation Failed.")
+
+            // use helper to get diet type
+            input.diet = helpersObj.getRecipeDietType(input.ingredients)
+            console.log(input.diet)
+            console.log(input.ingredients)
+
+            // use helper to validate recipe output
+            if (!helpersObj.isRecipeOutputValid(input)) throw new Error("Validation Failed.")
+
+            // update steps, ingredients, name, desc, intro, cooking_time
+            await db.Recipe.findOneAndUpdate({_id: input._id}, {
+                steps: input.steps,
+                ingredients: input.ingredients,
+                name: input.name,
+                desc: input.desc,
+                intro: input.intro,
+                cooking_time: input.cookingTime,
+                diet: input.diet
+            })
+
+            // compare old recipe data with new recipe data
+            let areStepsChanged = oldRecipe.steps.toString() !== input.steps.toString()
+            let areIngredientsChanged = oldRecipe.ingredients.toString() !== input.ingredients.toString()
+
+            // Initiating background processing chain to update insights, if steps or ingredients have changed.
+            if (areStepsChanged || areIngredientsChanged) {
+                asyncHandlersObj.updateRecipeInsights(stepsString, input)
+            }
+
+            resolve({code: 200, msg: "Edit has been saved."})
+        } catch (error) {
+            console.log(error)
+            if (error.message === "401") {
+                resolve({ code: 401, msg: "You are not authorised to edit this recipe."})
+                return
+            }
+            resolve({ code: 500, msg: "Could not update recipe"})
+        }
+    })
+}
+
 recipesObj.get = async(args = {}) => {
     try {
         let recipeData = []
