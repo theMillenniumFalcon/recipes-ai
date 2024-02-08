@@ -4,6 +4,7 @@ const axios = require("axios")
 const aiObj = require("../ai/gptAndDalle")
 const promptsObj = require("../ai/prompts")
 const helpers = require("./helpers")
+const { development } = require('../config/env')
 
 const PendingSubmission = require("../models/pendingSubmission")
 const Recipe = require("../models/recipe")
@@ -87,12 +88,12 @@ asyncHandlersObj.addRecipe = async(stepsString, input, retriesCount = 0) => {
 asyncHandlersObj.generateRecipeImage = async(newRecipe, input) => {
     try {
         const response = await aiObj.dalle(newRecipe.prompt)
-        const {data} = await axios.post(`https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ID}/images/v1`, {
+        const {data} = await axios.post(`https://api.cloudflare.com/client/v4/accounts/${development.CLOUDFLARE_ID}/images/v1`, {
                 url: response[0].url
             }, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`
+                Authorization: `Bearer ${development.CLOUDFLARE_TOKEN}`
                 }
             }
         )
