@@ -84,7 +84,7 @@ const main = async () => {
     })
 
     app.post('/api/recipes/images/upload', clerk.expressWithAuth({}), async(req, res) => {
-    if (!req.auth.sessionId) return unauthenticated(res)
+        if (!req.auth.sessionId) return unauthenticated(res)
 
         upload(req, res, async(err) => {
             if (err instanceof multer.MulterError) {
@@ -106,7 +106,7 @@ const main = async () => {
 
     app.put('/api/recipes/images/upload/:idx', clerk.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
-        // fix
+        
         upload(req, res, async(err) => {
             if (err instanceof multer.MulterError) {
                 res.statusCode = 406
