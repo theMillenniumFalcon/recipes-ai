@@ -1,7 +1,7 @@
 Web application that uses generative AI to simplify online sharing of recipes.
 
 # Scheduled Workers:
-- For information related to various cron jobs used in recipes-ai see [this.](./scheduled-workers.md)
+- For information related to various cron jobs used in recipes-ai see [this.](./scheduled-worker/scheduled-worker.md)
 
 # Tech Stack
 
