@@ -1,15 +1,15 @@
 const express = require('express')
-const app = express()
-const { Clerk } = require('@clerk/clerk-sdk-node')
-
-const connectDB = require('./database')
-const { development } = require('./config/env')
 
 const multer = require('multer')
 const { CloudflareStorage } = require('multer-cloudflare-storage')
-const clerk = new Clerk({ apiKey: development.CLERK_API_KEY })
 
-let startTime = null
+const connectDB = require('./database')
+const { development } = require('./config/env')
+const clerkConfig = require('./config/clerk')
+
+let startTime = Date.now()
+
+const app = express()
 
 app.use(express.json({
     limit: '50mb'
@@ -38,12 +38,31 @@ const main = async () => {
     }).single("image")
 
     // Endpoints
-    app.get('/status',async(req, res) => {
+    app.get('/status', async (req, res) => {
         if (startTime) {
-            res.json({code: 200, name: 'Recipes + AI (API)', status: `Operational`, startTime: `${startTime.toLocaleString('en-CA')} (Server Time - UTC)`})
+            let currentTime = Date.now()
+            let uptime = currentTime - startTime
+    
+            // Convert uptime to a human-readable format (hours, minutes, seconds)
+            let uptimeSeconds = Math.floor(uptime / 1000)
+            let uptimeMinutes = Math.floor(uptimeSeconds / 60)
+            let uptimeHours = Math.floor(uptimeMinutes / 60)
+            let formattedUptime = `${uptimeHours}h ${uptimeMinutes % 60}m ${uptimeSeconds % 60}s`
+    
+            res.json({
+                code: 200,
+                name: 'Recipes.AI API',
+                status: 'Operational',
+                startTime: new Date(startTime).toLocaleString('en-IN') + ' (Server Time - UTC)',
+                uptime: formattedUptime 
+            })
         } else {
             res.statusCode = 500
-            res.json({code: 500, name: 'Recipes + AI (API)', status: `Requires Attention`})
+            res.json({
+                code: 500,
+                name: 'Recipes.AI API',
+                status: 'Requires Attention'
+            })
         }
     })
 
@@ -54,16 +73,16 @@ const main = async () => {
         res.json(retrivedData.data)
     })
 
-    app.get('/api/recipes/:idx',async(req, res) => {
+    app.get('/api/recipes/:idx', async(req, res) => {
         const retrivedData = await recipes.get({ idx: req.params.idx })
         res.statusCode = retrivedData.code
         res.json(retrivedData.data)
     })
 
-    app.post('/api/recipes', clerk.expressWithAuth({}), async(req, res) => {
+    app.post('/api/recipes', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
-        const user = await clerk.users.getUser(req.auth.userId)
+        const user = await clerkConfig.users.getUser(req.auth.userId)
         req.body.author = `${user.firstName} ${user.lastName}`
         req.body.userId = user.id
 
@@ -72,9 +91,10 @@ const main = async () => {
         res.json(response)
     })
 
-    app.put('/api/recipes', clerk.expressWithAuth({}), async(req, res) => {
+    app.put('/api/recipes', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
-        const user = await clerk.users.getUser(req.auth.userId)
+            
+        const user = await clerkConfig.users.getUser(req.auth.userId)
         req.body.author = `${user.firstName} ${user.lastName}`
         req.body.userId = user.id
         
@@ -83,7 +103,7 @@ const main = async () => {
         res.json(response)
     })
 
-    app.post('/api/recipes/images/upload', clerk.expressWithAuth({}), async(req, res) => {
+    app.post('/api/recipes/images/upload', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
         upload(req, res, async(err) => {
@@ -104,7 +124,7 @@ const main = async () => {
         })
     })
 
-    app.put('/api/recipes/images/upload/:idx', clerk.expressWithAuth({}), async(req, res) => {
+    app.put('/api/recipes/images/upload/:idx', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
         
         upload(req, res, async(err) => {
@@ -125,7 +145,7 @@ const main = async () => {
         })
     })
 
-    app.delete('/api/recipes/:idx', clerk.expressWithAuth({}), async(req, res) => {
+    app.delete('/api/recipes/:idx', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
     
         const response = await recipes.delete(req.params.idx)
@@ -133,7 +153,7 @@ const main = async () => {
         res.json(response)
     })
 
-    app.get('/api/recipes/user/:skip/:limit', clerk.expressWithAuth({}), async(req, res) => {
+    app.get('/api/recipes/user/:skip/:limit', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
         const retrivedData = await recipes.getByUser({userId: req.auth.userId, skip: req.params.skip, limit: req.params.limit})

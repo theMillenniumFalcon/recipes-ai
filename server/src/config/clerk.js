@@ -1,7 +1,7 @@
-const Clerk = require('@clerk/clerk-sdk-node')
+const Clerk = require('@clerk/clerk-sdk-node/cjs/instance').default
 
 const { development } = require('./env')
 
-const clerkConfig = new Clerk({ apiKey: development.CLERK_API_KEY })
+const clerkConfig = Clerk({ secretKey: development.CLERK_SECRET_KEY })
 
-export default clerkConfig
+module.exports = clerkConfig
