@@ -152,4 +152,4 @@ asyncHandlersObj.updateRecipeInsights = async(stepsString, input, retries = 0) =
     }
 }
 
-export default asyncHandlersObj
+module.exports = asyncHandlersObj

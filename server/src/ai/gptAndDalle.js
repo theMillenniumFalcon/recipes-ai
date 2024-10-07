@@ -1,4 +1,4 @@
-const { default: openAIConfig } = require("../config/openai")
+const openAIConfig = require("../config/openai")
 
 const aiObj = {}
 aiObj.gpt = ((instruction) => {
@@ -35,4 +35,4 @@ aiObj.dalle = ((prompt) => {
     })
 })
 
-export default aiObj
+module.exports = aiObj

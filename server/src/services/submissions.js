@@ -19,4 +19,4 @@ submissionsObj.status = (id) => {
     })
 }
 
-export default submissionsObj
+module.exports = submissionsObj

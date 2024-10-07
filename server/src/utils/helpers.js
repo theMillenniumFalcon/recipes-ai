@@ -168,4 +168,4 @@ helpersObj.getRecipeDietType = (ingredients) => {
     return "Non-Vegetarian"
 }
 
-export default helpersObj
+module.exports = helpersObj

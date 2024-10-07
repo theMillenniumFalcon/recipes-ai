@@ -101,7 +101,7 @@ recipesObj.updateImage = async(input, idx, userId) => {
     })
 }
 
-recipes.update = async(input) => {
+recipesObj.update = async(input) => {
     return new Promise(async(resolve) => {
         try {
             // fetch old recipe data
@@ -172,7 +172,7 @@ recipes.update = async(input) => {
     })
 }
 
-recipesObj.get = async(args = {}) => {
+recipesObj.get = async (args = {}) => {
     try {
         let recipeData = []
         let count = 0
@@ -181,24 +181,25 @@ recipesObj.get = async(args = {}) => {
         if (args['idx']) {
             recipeData = await Recipe.findOne({ _id: args['idx'] })
             data = recipeData
-
         } else {
             recipeData = await Recipe.find()
-            .select('_id name author diet img_url desc').sort({_id: -1})
+            .select('_id name author diet img_url desc').sort({ _id: -1 })
             .skip(args.skip).limit(args.limit)
 
-            count = await Recipe.count()
-            data = {count: count, recipes: recipeData}
-
+            count = await Recipe.countDocuments()
+            data = {
+                count: count,
+                recipes: recipeData
+            }
         }
 
-        return {code: 200, data: data}
+        return { code: 200, data }
     } catch (error) {   
-        return { code: 500, msg: "Could not retrive data from data store"}
+        return { code: 500, msg: error.message }
     }
 }
 
-recipesObj.delete = async(idx) => {
+recipesObj.delete = async (idx) => {
     try {
         const recipeData = await Recipe.findOne({ _id: idx })
         try {
@@ -221,9 +222,7 @@ recipesObj.delete = async(idx) => {
         await Recipe.deleteOne({ _id: idx })
 
         return {code: 200, msg: `Deleted item with _id ${idx}.`}
-
     } catch (error) {
-
         console.time("RECIPE DELETE ERROR")
         console.log(`[> RECIPE DELETE ERROR DETAILS] ${error}`)
         
@@ -250,4 +249,4 @@ recipesObj.getByUser = async({userId, limit, skip}) => {
     }
 }
 
-export default recipesObj
+module.exports = recipesObj

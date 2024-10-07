@@ -1,12 +1,10 @@
-const { OpenAIApi, Configuration } = require("openai")
+const { OpenAI } = require("openai")
 
 const { development } = require('./env')
 
-const openAIConfig = new OpenAIApi(
-    new Configuration({
-        apiKey: development.OPENAI_KEY,
-        logLevel: 'silent'
-    })
-)
+const openAIConfig = new OpenAI({
+    apiKey: development.OPENAI_KEY,
+    logLevel: 'silent'
+})
 
-export default openAIConfig
+module.exports = openAIConfig

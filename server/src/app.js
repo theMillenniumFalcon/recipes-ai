@@ -1,11 +1,15 @@
 const express = require('express')
-
 const multer = require('multer')
 const { CloudflareStorage } = require('multer-cloudflare-storage')
 
 const connectDB = require('./database')
+
 const { development } = require('./config/env')
 const clerkConfig = require('./config/clerk')
+
+const recipesObj = require('./services/recipes')
+const searchObj = require('./services/search')
+const submissionsObj = require('./services/submissions')
 
 let startTime = Date.now()
 
@@ -66,39 +70,43 @@ const main = async () => {
         }
     })
 
-    app.get('/api/recipes/:skip/:limit', async(req, res) => {
-        const retrivedData = await recipes.get({skip: req.params.skip, limit: req.params.limit})
+    app.get('/api/recipes/:skip/:limit', async (req, res) => {
+        const retrivedData = await recipesObj.get({
+            skip: req.params.skip,
+            limit: req.params.limit
+        })
         res.statusCode = retrivedData.code
 
         res.json(retrivedData.data)
     })
 
-    app.get('/api/recipes/:idx', async(req, res) => {
-        const retrivedData = await recipes.get({ idx: req.params.idx })
+    app.get('/api/recipes/:idx', async (req, res) => {
+        const retrivedData = await recipesObj.get({ idx: req.params.idx })
         res.statusCode = retrivedData.code
+
         res.json(retrivedData.data)
     })
 
-    app.post('/api/recipes', clerkConfig.expressWithAuth({}), async(req, res) => {
+    app.post('/api/recipes', clerkConfig.expressWithAuth({}), async (req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
         const user = await clerkConfig.users.getUser(req.auth.userId)
         req.body.author = `${user.firstName} ${user.lastName}`
         req.body.userId = user.id
 
-        const response = await recipes.add(req.body)
+        const response = await recipesObj.add(req.body)
         res.statusCode = response.code
         res.json(response)
     })
 
-    app.put('/api/recipes', clerkConfig.expressWithAuth({}), async(req, res) => {
+    app.put('/api/recipes', clerkConfig.expressWithAuth({}), async (req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
-            
+
         const user = await clerkConfig.users.getUser(req.auth.userId)
         req.body.author = `${user.firstName} ${user.lastName}`
         req.body.userId = user.id
         
-        const response = await recipes.update(req.body)
+        const response = await recipesObj.update(req.body)
         res.statusCode = response.code
         res.json(response)
     })
@@ -118,7 +126,7 @@ const main = async () => {
                 return
             }
 
-            const response = await recipes.addImage(req.file)
+            const response = await recipesObj.addImage(req.file)
             res.statusCode = response.code
             res.json(response)
         })
@@ -139,7 +147,7 @@ const main = async () => {
                 return
             }
 
-            const response = await recipes.updateImage(req.file, req.params.idx, req.auth.userId)
+            const response = await recipesObj.updateImage(req.file, req.params.idx, req.auth.userId)
             res.statusCode = response.code
             res.json(response)
         })
@@ -148,7 +156,7 @@ const main = async () => {
     app.delete('/api/recipes/:idx', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
     
-        const response = await recipes.delete(req.params.idx)
+        const response = await recipesObj.delete(req.params.idx)
         res.statusCode = response.code
         res.json(response)
     })
@@ -156,24 +164,25 @@ const main = async () => {
     app.get('/api/recipes/user/:skip/:limit', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
-        const retrivedData = await recipes.getByUser({userId: req.auth.userId, skip: req.params.skip, limit: req.params.limit})
+        const retrivedData = await recipesObj.getByUser({
+            userId: req.auth.userId,
+            skip: req.params.skip,
+            limit: req.params.limit
+        })
         res.statusCode = retrivedData.code
 
         res.json(retrivedData.data)
     })
 
-    app.get('/api/search/:skip/:limit',async(req, res) => {
-        const filters = (req.query.diet) ? {diet : req.query.diet}: {}
-        const retrivedData = await search.query(req.query.q, filters, req.params.skip, req.params.limit)
-        console.log(req.query.q)
+    app.get('/api/search/:skip/:limit', async (req, res) => {
+        const retrivedData = await searchObj.query(req.query.q, req.params.skip, req.params.limit)
         res.statusCode = retrivedData.code
 
         res.json(retrivedData.data)
     })
 
-    app.get('/api/submissions/:id', async(req, res) => {
-        // if (!req.auth.sessionId) return unauthenticated(res)
-        const retrivedData = await submissions.status(req.params.id)
+    app.get('/api/submissions/:id', async (req, res) => {
+        const retrivedData = await submissionsObj.status(req.params.id)
         res.statusCode = retrivedData.code
 
         res.json(retrivedData.data)

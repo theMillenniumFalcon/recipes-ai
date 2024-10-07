@@ -44,4 +44,4 @@ promptsObj.recipeSpamCheck = Object.freeze({
     content: "The user will provide a submission made to a recipe sharing website, read it carefully, and give an integer score between 0 to 10 denoting the likelihood that this submission is spam with 10 being most likely and 0 being least likely. Base your score on the steps of the recipe, and their correlation to tis name. If the submission contains any curse words, references to nudity, any steps or a name written in gibberish as opposed to an actual language, does not mention any food ingredients in its steps or is nonsensical, give it a score of 10. Please note that anything that does not describe a process for preparing some kind of food is spam. Format your reply as a JSON object with a spam_score property that contains this score. Also, provide a reason for the score in the score_reason property. Do not include anything in your reply other than the JSON Object."
 })
 
-export default promptsObj
+module.exports = promptsObj
