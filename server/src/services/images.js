@@ -24,7 +24,7 @@ imagesObj.getHangingImages = async (keywords) => {
     }
 }
 
-imageObj.delete = async (idx) => {
+imagesObj.delete = async (idx) => {
     try {
         await PendingSubmission.deleteOne({ _id: idx })
     
