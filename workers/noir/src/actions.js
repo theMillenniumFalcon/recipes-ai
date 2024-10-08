@@ -43,4 +43,34 @@ actionsObj.cleanHangingImages = async (olderThan, env) => {
     }
 }
 
+actionsObj.cleanSuccessfulLogs = async (olderThan, env) => {
+    try {
+        console.log('Trying to clean success logs...');
+
+        const deleteResponse = await fetch(`${env.API_URL}/api/logs/successful?olderThan=${olderThan}`, {
+            method: 'DELETE',
+        });
+
+        console.log(`... Cleaned ${deleteResponse.deletedCount} success logs.`);
+    } catch (error) {
+        console.log('[ERR] Unable to clean success logs:');
+        console.log(error);
+    }
+}
+
+actionsObj.cleanUnsuccessfulLogs = async (olderThan, env) => {
+    try {
+        console.log('Trying to clean unsuccessful logs...');
+
+        const deleteResponse = await fetch(`${env.API_URL}/api/logs/unsuccessful?olderThan=${olderThan}`, {
+            method: 'DELETE',
+        });
+
+        console.log(`... Cleaned ${deleteResponse.deletedCount} unsuccessful logs.`);
+    } catch (error) {
+        console.log('[ERR] Unable to clean unsuccessful logs:');
+        console.log(error);
+    }
+}
+
 export default actionsObj;

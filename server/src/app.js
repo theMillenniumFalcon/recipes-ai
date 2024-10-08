@@ -11,6 +11,7 @@ const recipesObj = require('./services/recipes')
 const searchObj = require('./services/search')
 const submissionsObj = require('./services/submissions')
 const imagesObj = require('./services/images')
+const logsObj = require('./services/logs')
 
 let startTime = Date.now()
 
@@ -200,6 +201,22 @@ const main = async () => {
         if (!req.auth.sessionId) return unauthenticated(res)
     
         const response = await imagesObj.delete(req.params.idx)
+        res.statusCode = response.code
+        res.json(response)
+    })
+
+    app.delete('/api/logs/successful', clerkConfig.expressWithAuth({}), async(req, res) => {
+        if (!req.auth.sessionId) return unauthenticated(res)
+    
+        const response = await logsObj.deleteSuccessfulLogs(req.query.olderThan)
+        res.statusCode = response.code
+        res.json(response)
+    })
+
+    app.delete('/api/logs/unsuccessful', clerkConfig.expressWithAuth({}), async(req, res) => {
+        if (!req.auth.sessionId) return unauthenticated(res)
+    
+        const response = await logsObj.deleteUnsuccessfulLogs(req.query.olderThan)
         res.statusCode = response.code
         res.json(response)
     })

@@ -3,7 +3,7 @@ const PendingSubmission = require("../models/pendingSubmission")
 const imagesObj = {}
 
 imagesObj.getHangingImages = async (keywords) => {
-    const olderThan = parseInt(keywords)
+    const olderThan = parseInt(keywords);
 
     try {
         let imageData = []
@@ -29,10 +29,10 @@ imagesObj.delete = async (idx) => {
         await PendingSubmission.deleteOne({ _id: idx })
     
         return {code: 200, msg: `Deleted item with _id ${idx}.`}
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         return { code: 404, msg: "Could not delete item, please try again later."}
-      }
+    }
 }
 
-module.exports = imagesObj
+module.exports = imagesObj;
