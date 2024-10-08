@@ -5,12 +5,16 @@
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
+    "cron:local": "wrangler dev --test-scheduled",
     "start": "wrangler dev",
     "test": "vitest"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.2",
-    "wrangler": "^3.60.3",
-    "vitest": "2.0.5"
+    "vitest": "2.0.5",
+    "wrangler": "^3.80.1"
+  },
+  "dependencies": {
+    "realm-web": "^2.0.1"
   }
 }

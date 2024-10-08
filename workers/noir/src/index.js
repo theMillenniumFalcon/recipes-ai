@@ -10,6 +10,11 @@
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
+		return new Response('Hello from the fetch handler!');
 	},
+	async scheduled(event, env, ctx) {
+		console.log('Cron job executed at:', new Date().toISOString());
+
+		return new Response('Cron job executed successfully!');
+	}
 };
