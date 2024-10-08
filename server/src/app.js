@@ -46,13 +46,12 @@ const main = async () => {
     // Endpoints
     app.get('/status', async (req, res) => {
         if (startTime) {
-            let currentTime = Date.now()
-            let uptime = currentTime - startTime
+            let uptimeInSeconds = process.uptime()
     
             // Convert uptime to a human-readable format (hours, minutes, seconds)
-            let uptimeSeconds = Math.floor(uptime / 1000)
-            let uptimeMinutes = Math.floor(uptimeSeconds / 60)
-            let uptimeHours = Math.floor(uptimeMinutes / 60)
+            const uptimeHours = Math.floor(uptimeInSeconds / 3600);
+            const uptimeMinutes = Math.floor((uptimeInSeconds % 3600) / 60);
+            const uptimeSeconds = Math.floor(uptimeInSeconds % 60);
             let formattedUptime = `${uptimeHours}h ${uptimeMinutes % 60}m ${uptimeSeconds % 60}s`
     
             res.json({
