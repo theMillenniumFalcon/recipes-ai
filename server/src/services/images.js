@@ -26,7 +26,7 @@ imagesObj.getHangingImages = async (keywords) => {
 
 imageObj.delete = async (idx) => {
     try {
-        await PendingSubmission.deleteOne({ _id: new MongoClient.ObjectID(idx) })
+        await PendingSubmission.deleteOne({ _id: idx })
     
         return {code: 200, msg: `Deleted item with _id ${idx}.`}
       } catch (error) {

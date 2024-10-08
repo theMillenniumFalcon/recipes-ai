@@ -5,7 +5,7 @@ const actionsObj = {};
 actionsObj.cleanHangingImages = async (olderThan, env) => {
     try {
         console.log('Trying to clean hanging images...');
-        
+
         // A request to the API to get the hanging images
         const response = await fetch(`${env.API_URL}/api/images/hangingImages?olderThan=${olderThan}`, {
             method: 'GET',
@@ -42,3 +42,5 @@ actionsObj.cleanHangingImages = async (olderThan, env) => {
         console.log(error);
     }
 }
+
+export default actionsObj;
