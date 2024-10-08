@@ -13,7 +13,7 @@ const submissionsObj = require('./services/submissions')
 const imagesObj = require('./services/images')
 const logsObj = require('./services/logs')
 
-let startTime = Date.now()
+let startTime;
 
 const app = express()
 
@@ -221,6 +221,7 @@ const main = async () => {
     })
     
     const server = app.listen(development.PORT, development.HOST, () => {
+        startTime = new Date()
         console.log(`server listening on port ${development.PORT} and host ${development.HOST}`)
     })
 
