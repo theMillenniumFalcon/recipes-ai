@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 const promptsObj = require("../ai/prompts")
 const { development } = require("../config/env")
 const asyncHandlersObj = require("../utils/asyncHandlers")
@@ -6,7 +8,8 @@ const PendingSubmission = require("../models/pendingSubmission")
 const Recipe = require("../models/recipe")
 
 const recipesObj = {}
-recipesObj.add = async(input) => {
+
+recipesObj.add = async (input) => {
     return new Promise(async(resolve) => {
         try {           
             // Preparing Prompt
@@ -53,7 +56,7 @@ recipesObj.add = async(input) => {
     })
 }
 
-recipesObj.addImage = async(input) => {
+recipesObj.addImage = async (input) => {
     return new Promise(async(resolve) => {
         try {
             let newPendingSubmission = {
@@ -72,7 +75,7 @@ recipesObj.addImage = async(input) => {
     })
 }
 
-recipesObj.updateImage = async(input, idx, userId) => {
+recipesObj.updateImage = async (input, idx, userId) => {
     return new Promise(async(resolve) => {
         try {
             const recipe = await Recipe.findOne({_id: idx})
@@ -101,7 +104,7 @@ recipesObj.updateImage = async(input, idx, userId) => {
     })
 }
 
-recipesObj.update = async(input) => {
+recipesObj.update = async (input) => {
     return new Promise(async(resolve) => {
         try {
             // fetch old recipe data
@@ -230,7 +233,7 @@ recipesObj.delete = async (idx) => {
     }
 }
 
-recipesObj.getByUser = async({userId, limit, skip}) => {
+recipesObj.getByUser = async ({userId, limit, skip}) => {
     try {
         let recipeData = []
         let count = 0

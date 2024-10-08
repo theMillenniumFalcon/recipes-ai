@@ -1,19 +1,13 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import actionsObj from './actions';
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello from the fetch handler!');
+		return new Response('Hello from noir worker');
 	},
 	async scheduled(event, env, ctx) {
 		console.log('Cron job executed at:', new Date().toISOString());
+
+		await actionsObj.cleanHangingImages((24 * 60 * 60 * 1000), env);
 
 		return new Response('Cron job executed successfully!');
 	}

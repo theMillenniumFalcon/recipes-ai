@@ -2,6 +2,7 @@ const PendingSubmission = require("../models/pendingSubmission")
 
 // Service for fetching status of pending submissions
 const submissionsObj = {}
+
 submissionsObj.status = (id) => {
     return new Promise(async(resolve) => {
         try {
@@ -11,7 +12,7 @@ submissionsObj.status = (id) => {
                 data: submission
             })
         } catch (error) {
-            resolve({ 
+            resolve({
                 code: 500, 
                 msg: "Could not retrive data from data store"
             })

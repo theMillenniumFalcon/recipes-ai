@@ -3,7 +3,8 @@ const Recipe = require("../models/recipe")
 // Service for searching, written apart from recipe service 
 // as in future search will also accompany author profiles.
 const searchObj = {}
-searchObj.query = async(keywords, skip, limit) => {
+
+searchObj.query = async (keywords, skip, limit) => {
     try {
         let querySpec = [
             {

@@ -14,5 +14,6 @@ enabled = true
 crons = ["30 3 * * *"]  # This will run after every 3 hours 30 minutes
 
 [vars]
-REALM_ID = "65a64dbe10aba26bd067fa9d"
-REALM_KEY = "example_user"
+API_URL = "https://recipes-ai-api.vercel.app"
+CLOUDFLARE_ID = "91472a2ac8fe2b2072f30da267651381"
+CLOUDFLARE_TOKEN = "iRu0QB4WuGw1uLRfLhdPwIUrk4Af1_goPAsfU5qT"

@@ -10,6 +10,7 @@ const clerkConfig = require('./config/clerk')
 const recipesObj = require('./services/recipes')
 const searchObj = require('./services/search')
 const submissionsObj = require('./services/submissions')
+const imagesObj = require('./services/images')
 
 let startTime = Date.now()
 
@@ -71,20 +72,20 @@ const main = async () => {
     })
 
     app.get('/api/recipes/:skip/:limit', async (req, res) => {
-        const retrivedData = await recipesObj.get({
+        const retrievedData = await recipesObj.get({
             skip: req.params.skip,
             limit: req.params.limit
         })
-        res.statusCode = retrivedData.code
+        res.statusCode = retrievedData.code
 
-        res.json(retrivedData.data)
+        res.json(retrievedData.data)
     })
 
     app.get('/api/recipes/:idx', async (req, res) => {
-        const retrivedData = await recipesObj.get({ idx: req.params.idx })
-        res.statusCode = retrivedData.code
+        const retrievedData = await recipesObj.get({ idx: req.params.idx })
+        res.statusCode = retrievedData.code
 
-        res.json(retrivedData.data)
+        res.json(retrievedData.data)
     })
 
     app.post('/api/recipes', clerkConfig.expressWithAuth({}), async (req, res) => {
@@ -164,28 +165,43 @@ const main = async () => {
     app.get('/api/recipes/user/:skip/:limit', clerkConfig.expressWithAuth({}), async(req, res) => {
         if (!req.auth.sessionId) return unauthenticated(res)
 
-        const retrivedData = await recipesObj.getByUser({
+        const retrievedData = await recipesObj.getByUser({
             userId: req.auth.userId,
             skip: req.params.skip,
             limit: req.params.limit
         })
-        res.statusCode = retrivedData.code
+        res.statusCode = retrievedData.code
 
-        res.json(retrivedData.data)
+        res.json(retrievedData.data)
     })
 
     app.get('/api/search/:skip/:limit', async (req, res) => {
-        const retrivedData = await searchObj.query(req.query.q, req.params.skip, req.params.limit)
-        res.statusCode = retrivedData.code
+        const retrievedData = await searchObj.query(req.query.q, req.params.skip, req.params.limit)
+        res.statusCode = retrievedData.code
 
-        res.json(retrivedData.data)
+        res.json(retrievedData.data)
     })
 
     app.get('/api/submissions/:id', async (req, res) => {
-        const retrivedData = await submissionsObj.status(req.params.id)
-        res.statusCode = retrivedData.code
+        const retrievedData = await submissionsObj.status(req.params.id)
+        res.statusCode = retrievedData.code
 
-        res.json(retrivedData.data)
+        res.json(retrievedData.data)
+    })
+
+    app.get('/api/images/hangingImages', async (req, res) => {
+        const retrievedData = await imagesObj.getHangingImages(req.query.olderThan)
+        res.statusCode = retrievedData.code
+
+        res.json(retrievedData.data)
+    })
+
+    app.delete('/api/images/:idx', clerkConfig.expressWithAuth({}), async(req, res) => {
+        if (!req.auth.sessionId) return unauthenticated(res)
+    
+        const response = await imagesObj.delete(req.params.idx)
+        res.statusCode = response.code
+        res.json(response)
     })
     
     const server = app.listen(development.PORT, development.HOST, () => {
