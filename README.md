@@ -45,7 +45,3 @@ Web application that uses generative AI to simplify online sharing of recipes.
 * AI-powered spam filteration.
 * AI-powered insights on common food allergens in recipes.
 * AI-powered insights on the health implications of recipes.
-
-# Related Resources:
-- [Setting up Atlas App Service to connect with Cloudflare workers](https://www.mongodb.com/developer/products/atlas/cloudflare-worker-rest-api/#check-out-the-rest-api-code).
-- [Finding your Cloudflare Account ID and API token](https://developers.cloudflare.com/images/cloudflare-images/api-request).
